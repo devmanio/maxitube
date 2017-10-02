@@ -93,7 +93,7 @@ contract TUBE is SafeMath, StandardToken {
     address public owner;
 
     //~10usd
-    uint public oneTokenInWei = 3e16;
+    uint public oneTokenInWei = 32786885245901600;
     
 
     modifier onlyOwner {
