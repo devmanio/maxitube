@@ -135,17 +135,13 @@ contract TUBE is SafeMath, StandardToken {
 
     function transferRoot(address _newOwner) onlyOwner {
         owner = _newOwner;
-        return true;
     }
 
     function mint(address _to, uint256 _tokens) onlyOwner {
         uint256 checkedSupply = safeAdd(totalSupply, _tokens);
         if (tokenCreationCap < checkedSupply) revert();
-
         balances[_to] += _tokens;
-        totalSupply = safeAdd(totalSupply, tokens);
-        return true;
-        
+        totalSupply = safeAdd(totalSupply, _tokens);
     }
 
 }
