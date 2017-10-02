@@ -83,10 +83,10 @@ contract StandardToken is Token {
     mapping (address => mapping (address => uint256)) allowed;
 }
 
-contract MAXI is SafeMath, StandardToken {
+contract TUBE is SafeMath, StandardToken {
 
     string public constant name = "MaxiTube preICO Token";
-    string public constant symbol = "MAXI";
+    string public constant symbol = "TUBE";
     uint256 public constant decimals = 18;
     uint256 public constant tokenCreationCap =  40000*10**decimals;
 
@@ -101,9 +101,9 @@ contract MAXI is SafeMath, StandardToken {
         _;
     }
 
-    event CreateMAXI(address indexed _to, uint256 _value);
+    event CreateTUBE(address indexed _to, uint256 _value);
 
-    function MAXI() {
+    function TUBE() {
         owner = msg.sender;
 
     }
@@ -131,6 +131,23 @@ contract MAXI is SafeMath, StandardToken {
 
     function setEthPrice(uint _etherPrice) onlyOwner {
         oneTokenInWei = _etherPrice;
+    }
+
+    function transferRoot(address _newOwner) onlyOwner {
+        owner = _newOwner;
+        return true;
+    }
+
+    function mint(address _to, uint256 _tokens) onlyOwner {
+        if (msg.value <= 0) revert();
+
+        uint256 checkedSupply = safeAdd(totalSupply, _tokens);
+        if (tokenCreationCap < checkedSupply) revert();
+
+        balances[_to] += _tokens;
+        totalSupply = safeAdd(totalSupply, tokens);
+        return true;
+        
     }
 
 }
