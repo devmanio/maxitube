@@ -139,8 +139,6 @@ contract TUBE is SafeMath, StandardToken {
     }
 
     function mint(address _to, uint256 _tokens) onlyOwner {
-        if (msg.value <= 0) revert();
-
         uint256 checkedSupply = safeAdd(totalSupply, _tokens);
         if (tokenCreationCap < checkedSupply) revert();
 
